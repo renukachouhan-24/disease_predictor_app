@@ -1,0 +1,10 @@
+flask
+flask-login
+tensorflow
+numpy
+pillow
+python-dotenv
+google-auth-oauthlib
+requests
+oauthlib
+gunicorn

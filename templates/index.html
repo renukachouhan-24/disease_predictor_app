@@ -1,0 +1,180 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Disease Risk Predictor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen font-sans">
+
+    <header class="gradient-bg text-white py-10 shadow-lg text-center">
+        <h1 class="text-4xl font-bold">AI Early Disease Predictor</h1>
+        <p class="mt-2 text-blue-100">Upload a scan (CT/Ultrasound) for instant analysis</p>
+    </header>
+
+    <main class="max-w-4xl mx-auto mt-10 p-6">
+        <div class="bg-white rounded-xl shadow-md p-8">
+            <form action="/predict" method="post" enctype="multipart/form-data">
+                
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Select Disease Type:</label>
+                    <select name="disease" id="disease" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <option value="lung">Lung Cancer Analysis</option>
+                        <option value="ovarian">Ovarian Cancer Analysis</option>
+                        <option value="pancreatic">Pancreatic Cancer Analysis</option>
+                    </select>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Upload Scan Image:</label>
+                    <div class="flex items-center justify-center w-full">
+                        <label class="flex flex-col w-full h-32 border-4 border-dashed border-gray-200 hover:bg-gray-50 hover:border-purple-300 transition-all cursor-pointer">
+                            <div class="flex flex-col items-center justify-center pt-7">
+                                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                                <p class="pt-1 text-sm tracking-wider text-gray-400">Select PNG or JPG</p>
+                            </div>
+                            <input type="file" name="image" class="opacity-0" onchange="previewImage(event)" required />
+                        </label>
+                    </div>
+                </div>
+
+                <div id="preview-container" class="hidden mb-6 text-center">
+                    <p class="text-sm text-gray-500 mb-2">Selected Image:</p>
+                    <img id="image-preview" src="#" alt="Preview" class="mx-auto h-48 rounded-lg shadow-sm border">
+                </div>
+
+                <button type="submit" class="w-full gradient-bg text-white font-bold py-3 px-4 rounded-lg hover:opacity-90 transition-all transform hover:scale-[1.01]">
+                    Analyze Scan
+                </button>
+            </form>
+
+            {% if prediction_text %}
+            <div class="mt-8 p-6 bg-purple-50 border-l-4 border-purple-500 rounded-r-lg">
+                <h3 class="text-purple-800 font-bold text-lg">Prediction Result:</h3>
+                <p class="text-2xl font-black text-purple-600 mt-2">{{ prediction_text }}</p>
+                <p class="text-xs text-gray-400 mt-4">Note: This is an AI simulation. Consult a doctor for medical advice.</p>
+            </div>
+            {% endif %}
+
+        </div>
+    </main>
+
+    <script>
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function(){
+                const output = document.getElementById('image-preview');
+                output.src = reader.result;
+                document.getElementById('preview-container').classList.remove('hidden');
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Disease Risk Predictor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #1e3a8a 0%, #581c87 100%); }
+        .result-box { transition: all 0.3s ease-in-out; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen font-sans">
+
+    <header class="gradient-bg text-white py-12 shadow-xl text-center">
+        <h1 class="text-5xl font-extrabold tracking-tight">AI Early Disease Predictor</h1>
+        <p class="mt-3 text-blue-200 text-lg">Intelligent Medical Imaging Analysis System</p>
+    </header>
+
+    <main class="max-w-4xl mx-auto mt-12 p-4">
+        <div class="bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200">
+            
+            <div class="p-8">
+                <form action="/predict" method="post" enctype="multipart/form-data">
+                    
+                    <div class="mb-8">
+                        <label class="block text-slate-700 text-sm font-bold mb-3 uppercase tracking-wider">Select Organ for Analysis</label>
+                        <select name="disease" class="w-full p-4 bg-slate-50 border-2 border-slate-200 rounded-xl focus:border-purple-500 focus:ring-0 transition-all outline-none text-slate-700 font-medium">
+                            <option value="lung">🫁 Lung (Chest X-Ray/CT)</option>
+                            <option value="ovarian">🩺 Ovarian (Ultrasound)</option>
+                            <option value="pancreatic">🧪 Pancreas (CT Scan)</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-8">
+                        <label class="block text-slate-700 text-sm font-bold mb-3 uppercase tracking-wider">Upload Medical Image</label>
+                        <div class="flex items-center justify-center w-full">
+                            <label class="flex flex-col w-full h-40 border-4 border-dashed border-slate-200 hover:bg-slate-50 hover:border-purple-400 transition-all cursor-pointer group">
+                                <div class="flex flex-col items-center justify-center pt-9">
+                                    <svg class="w-10 h-10 text-slate-400 group-hover:text-purple-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                                    <p class="pt-2 text-sm text-slate-500 font-medium">Click to select JPG or PNG scan</p>
+                                </div>
+                                <input type="file" name="image" class="hidden" onchange="previewImage(event)" required />
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="preview-container" class="hidden mb-8 text-center animate-fade-in">
+                        <p class="text-sm font-bold text-slate-400 mb-3 uppercase">Selected Scan Preview</p>
+                        <img id="image-preview" src="#" alt="Preview" class="mx-auto max-h-64 rounded-xl shadow-lg border-4 border-white">
+                    </div>
+
+                    <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-purple-200 transition-all transform hover:-translate-y-1 active:scale-95">
+                        Start AI Diagnosis
+                    </button>
+                </form>
+
+                {% if prediction_text %}
+                <div class="mt-10 result-box">
+                    {% if "Normal" in prediction_text %}
+                    <div class="p-6 bg-green-50 border-l-8 border-green-500 rounded-xl">
+                        <h3 class="text-green-800 font-bold text-xl flex items-center">
+                            <span class="mr-2">✅</span> Analysis Result:
+                        </h3>
+                        <p class="text-3xl font-black text-green-600 mt-2">{{ prediction_text }}</p>
+                        <p class="mt-4 text-green-700 text-sm italic">The AI did not find any significant signs of malignancy in this scan.</p>
+                    </div>
+                    {% else %}
+                    <div class="p-6 bg-red-50 border-l-8 border-red-500 rounded-xl">
+                        <h3 class="text-red-800 font-bold text-xl flex items-center">
+                            <span class="mr-2">⚠️</span> Potential Concern Detected:
+                        </h3>
+                        <p class="text-3xl font-black text-red-600 mt-2">{{ prediction_text }}</p>
+                        <p class="mt-4 text-red-700 text-sm font-medium">Please consult a medical professional for further clinical investigation.</p>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+            </div>
+            
+            <div class="bg-slate-100 p-4 text-center">
+                <p class="text-xs text-slate-500 font-semibold uppercase tracking-widest">Medical Simulation Tool • Powered by TensorFlow</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function(){
+                const output = document.getElementById('image-preview');
+                output.src = reader.result;
+                document.getElementById('preview-container').classList.remove('hidden');
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+</body>
+</html>
