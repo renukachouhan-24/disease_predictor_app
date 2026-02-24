@@ -12,6 +12,7 @@ from dotenv import load_dotenv
 import io
 from PIL import Image
 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 # Environment settings
 load_dotenv()
 # Render par HTTPS zaroori hai, local ke liye insecure allow karte hain
