@@ -1,6 +1,6 @@
 flask
 flask-login
-tensorflow
+tensorflow-cpu
 numpy
 pillow
 python-dotenv
