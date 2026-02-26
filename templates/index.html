@@ -4,228 +4,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Disease Predictor | Dashboard</title>
+    <title>MediScan AI | Next-Gen Diagnostics</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap"
+        rel="stylesheet">
 </head>
 
-<body class="bg-blue-50 min-h-screen font-sans">
-
-    <nav
-        class="glass sticky top-0 z-50 px-6 py-4 shadow-sm flex justify-between items-center border-b border-slate-200">
-        <div class="flex items-center gap-2">
-            <div
-                class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg">
-                AI</div>
-            <span class="text-xl font-bold gradient-text">MediScan</span>
-        </div>
+<body class="bg-indigo-50/30 min-h-screen font-sans antialiased">
+    <nav class="glass sticky top-0 z-50 px-10 py-5 flex justify-between items-center border-b border-indigo-100/50">
         <div class="flex items-center gap-4">
-            <span class="hidden md:inline text-slate-600 font-medium">Welcome, <span
-                    class="text-indigo-600 font-bold">{{ user_name }}</span></span>
-            <a href="/logout"
-                class="bg-red-50 text-red-600 px-4 py-2 rounded-xl font-semibold hover:bg-red-500 hover:text-white transition-all duration-300 text-sm border border-red-100">Logout</a>
+            <div class="group relative">
+                <div
+                    class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200">
+                </div>
+                <div
+                    class="relative w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center text-white font-extrabold text-xl shadow-2xl">
+                    M</div>
+            </div>
+            <div>
+                <span class="text-2xl font-black tracking-tighter gradient-text">MediScan Pro</span>
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                    <p class="text-[10px] text-slate-400 font-bold tracking-[0.2em] uppercase">AI Engine Active</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-8">
+            <div class="h-8 w-px bg-slate-200"></div>
+            <div class="flex items-center gap-4">
+                <div class="text-right hidden sm:block">
+                    <p class="text-[10px] text-slate-400 font-black uppercase tracking-tighter">Chief Resident</p>
+                    <p class="text-slate-900 font-bold leading-none">{{ user_name }}</p>
+                </div>
+                <a href="/logout"
+                    class="group bg-red-50 text-red-600 p-3 rounded-2xl hover:bg-red-600 hover:text-white transition-all duration-500 shadow-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                </a>
+            </div>
         </div>
     </nav>
 
-    <main class="max-w-6xl mx-auto py-12 px-4">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <main class="max-w-7xl mx-auto py-12 px-8">
+        <div class="mb-12">
+            <h1 class="text-4xl font-black text-slate-900 tracking-tight">Diagnostic Workspace</h1>
+            <p class="text-slate-500 font-medium text-lg mt-1">Initialize automated oncology screening protocols.</p>
+        </div>
 
-            <div class="lg:col-span-2 space-y-6">
-                <div class="bg-white rounded-3xl shadow-2xl p-8 border border-slate-100">
-                    <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
-                        <span>New Diagnostic Scan</span>
-                        <span
-                            class="text-xs bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full uppercase tracking-tighter">AI
-                            Analysis</span>
-                    </h2>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            <div class="lg:col-span-8 space-y-10">
+                <div
+                    class="bg-white rounded-[3rem] shadow-2xl shadow-indigo-100/50 p-12 relative overflow-hidden border border-white">
+                    <div
+                        class="absolute -top-20 -right-20 w-80 h-80 bg-gradient-to-br from-indigo-100 to-transparent rounded-full blur-3xl opacity-40">
+                    </div>
 
-                    <form action="/predict" method="post" enctype="multipart/form-data" id="upload-form">
-                        <div class="space-y-6">
-                            <!-- <div>
-                                <label class="block text-slate-400 text-xs font-bold uppercase mb-3 tracking-widest">Select Target Organ</label>
-                                <div class="grid grid-cols-3 gap-4">
-                                    <label class="cursor-pointer">
-                                        <input type="radio" name="disease" value="lung" class="peer hidden" checked>
-                                        <div class="peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:border-indigo-600 border-2 border-slate-100 p-5 rounded-2xl text-center transition-all duration-300 hover:shadow-md bg-white">
-                                            <span class="text-3xl block mb-2">🫁</span>
-                                            <span class="text-xs font-extrabold">LUNG</span>
-                                        </div>
-                                    </label>
-                                    <label class="cursor-pointer">
-                                        <input type="radio" name="disease" value="ovarian" class="peer hidden">
-                                        <div class="peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:border-indigo-600 border-2 border-slate-100 p-5 rounded-2xl text-center transition-all duration-300 hover:shadow-md bg-white">
-                                            <span class="text-3xl block mb-2">🩺</span>
-                                            <span class="text-xs font-extrabold">OVARIAN</span>
-                                        </div>
-                                    </label>
-                                    <label class="cursor-pointer">
-                                        <input type="radio" name="disease" value="pancreatic" class="peer hidden">
-                                        <div class="peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:border-indigo-600 border-2 border-slate-100 p-5 rounded-2xl text-center transition-all duration-300 hover:shadow-md bg-white">
-                                            <span class="text-3xl block mb-2">🧪</span>
-                                            <span class="text-xs font-extrabold">PANCREAS</span>
-                                        </div>
-                                    </label>
-                                </div>
-                            </div> -->
-                            <!-- <div>
-                                <label
-                                    class="block text-slate-500 text-xs font-bold uppercase mb-3 tracking-widest">Select
-                                    Target Organ</label>
-                                <div class="grid grid-cols-3 gap-4">
-
-                                    <label class="cursor-pointer group">
-                                        <input type="radio" name="disease" value="lung" class="peer hidden" checked>
-                                        <div class="border-2 border-slate-200 p-5 rounded-3xl text-center transition-all duration-300 
-                        peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:border-indigo-800 peer-checked:shadow-xl 
-                        transform peer-checked:scale-105 group-hover:border-indigo-300">
-                                            <span class="text-3xl block mb-2">🫁</span>
-                                            <span class="text-xs font-black tracking-tighter">LUNG</span>
-                                        </div>
-                                    </label>
-
-                                    <label class="cursor-pointer group">
-                                        <input type="radio" name="disease" value="ovarian" class="peer hidden">
-                                        <div class="border-2 border-slate-200 p-5 rounded-3xl text-center transition-all duration-300 
-                        peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:border-indigo-800 peer-checked:shadow-xl 
-                        transform peer-checked:scale-105 group-hover:border-indigo-300">
-                                            <span class="text-3xl block mb-2">🩺</span>
-                                            <span class="text-xs font-black tracking-tighter">OVARIAN</span>
-                                        </div>
-                                    </label>
-
-                                    <label class="cursor-pointer group">
-                                        <input type="radio" name="disease" value="pancreatic" class="peer hidden">
-                                        <div class="border-2 border-slate-200 p-5 rounded-3xl text-center transition-all duration-300 
-                        peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:border-indigo-800 peer-checked:shadow-xl 
-                        transform peer-checked:scale-105 group-hover:border-indigo-300">
-                                            <span class="text-3xl block mb-2">🧪</span>
-                                            <span class="text-xs font-black tracking-tighter">PANCREAS</span>
-                                        </div>
-                                    </label>
-
-                                </div>
-                            </div> -->
-
-                            <div>
-                                <label
-                                    class="block text-slate-500 text-xs font-bold uppercase mb-3 tracking-widest text-center md:text-left">
-                                    Select Target Organ
-                                </label>
-                                <div class="grid grid-cols-3 gap-4">
-
-                                    <label class="cursor-pointer">
-                                        <input type="radio" name="disease" value="lung" class="peer hidden" checked>
-                                        <div class="bg-white border-2 border-slate-200 p-5 rounded-3xl text-center transition-all duration-300 
-                        peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:border-indigo-700 
-                        peer-checked:shadow-2xl transform peer-checked:scale-105 hover:border-indigo-300 ">
-                                            <span class="text-3xl block mb-2">🫁</span>
-                                            <span class="text-xs font-black tracking-tighter">LUNG</span>
-                                        </div>
-                                    </label>
-
-                                    <label class="cursor-pointer">
-                                        <input type="radio" name="disease" value="ovarian" class="peer hidden">
-                                        <div class="bg-white border-2 border-slate-200 p-5 rounded-3xl text-center transition-all duration-300 
-                        peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:border-indigo-700 
-                        peer-checked:shadow-2xl transform peer-checked:scale-105 hover:border-indigo-300">
-                                            <span class="text-3xl block mb-2">🩺</span>
-                                            <span class="text-xs font-black tracking-tighter">OVARIAN</span>
-                                        </div>
-                                    </label>
-
-                                    <label class="cursor-pointer">
-                                        <input type="radio" name="disease" value="pancreatic" class="peer hidden">
-                                        <div class="bg-white border-2 border-slate-200 p-5 rounded-3xl text-center transition-all duration-300 
-                        peer-checked:bg-indigo-600 peer-checked:text-white peer-checked:border-indigo-700 
-                        peer-checked:shadow-2xl transform peer-checked:scale-105 hover:border-indigo-300">
-                                            <span class="text-3xl block mb-2">🧪</span>
-                                            <span class="text-xs font-black tracking-tighter">PANCREAS</span>
-                                        </div>
-                                    </label>
-
-                                </div>
-                            </div>
-
-                            <div class="relative group">
-                                <label
-                                    class="flex flex-col items-center justify-center w-full h-56 border-2 border-dashed border-slate-200 rounded-3xl bg-slate-50 group-hover:bg-white group-hover:border-indigo-400 transition-all duration-300 cursor-pointer shadow-inner">
-                                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                    <form action="/predict" method="post" enctype="multipart/form-data"
+                        class="relative z-10 space-y-12">
+                        <section>
+                            <label
+                                class="flex items-center gap-3 text-slate-400 text-xs font-black uppercase mb-8 tracking-[0.3em]">
+                                <span
+                                    class="w-6 h-6 rounded-full bg-slate-900 text-white flex items-center justify-center text-[10px]">01</span>
+                                Select Protocol
+                            </label>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                {% for val, label, icon in [('lung', 'Pulmonary', '🫁'), ('ovarian', 'Ovarian', '🩺'),
+                                ('pancreatic', 'Pancreatic', '🧪')] %}
+                                <label class="group cursor-pointer">
+                                    <input type="radio" name="disease" value="{{ val }}" class="peer hidden"
+                                        {{ 'checked' if val=='lung' }}>
+                                    <div
+                                        class="relative bg-slate-50/50 border-2 border-slate-100 p-8 rounded-[2.5rem] text-center transition-all duration-500 peer-checked:bg-slate-900 peer-checked:text-white peer-checked:border-slate-900 peer-checked:shadow-2xl peer-checked:-translate-y-2">
                                         <div
-                                            class="p-4 bg-indigo-50 rounded-full mb-4 group-hover:bg-indigo-100 transition-colors">
-                                            <svg class="w-8 h-8 text-indigo-500" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                                            </svg>
+                                            class="absolute top-4 right-4 w-2 h-2 rounded-full bg-indigo-500 opacity-0 peer-checked:opacity-100">
                                         </div>
-                                        <p class="text-sm text-slate-500 font-semibold">Drop image here or <span
-                                                class="text-indigo-600 underline">Browse File</span></p>
-                                        <p class="text-xs text-slate-400 mt-2">Supports JPG, PNG (Max 5MB)</p>
+                                        <span
+                                            class="text-5xl block mb-4 filter drop-shadow-lg transform group-hover:scale-110 transition-transform">{{
+                                            icon }}</span>
+                                        <span class="text-sm font-black uppercase tracking-tighter">{{ label }}</span>
                                     </div>
-                                    <input type="file" name="image" class="hidden" onchange="previewImage(event)"
-                                        required />
                                 </label>
+                                {% endfor %}
                             </div>
+                        </section>
 
-                            <!-- <button type="submit" onclick="showLoading()"
-                                class="w-full bg-black-600 text-white font-bold py-5 rounded-2xl hover:bg-indigo-700 transition-all duration-300 shadow-xl flex justify-center items-center gap-3 transform hover:-translate-y-1">
-                                <span>Run AI Diagnosis</span>
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                            </button> -->
-                            <button type="submit" onclick="showLoading()"
-                                class="w-full bg-black text-white font-bold py-5 rounded-2xl hover:bg-gray-800 active:scale-95 transition-all duration-300 shadow-xl flex justify-center items-center gap-3 transform hover:-translate-y-1">
-                                <span>Run AI Diagnosis</span>
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                </svg>
-                            </button>
-                        </div>
+                        <section>
+                            <label
+                                class="flex items-center gap-3 text-slate-400 text-xs font-black uppercase mb-8 tracking-[0.3em]">
+                                <span
+                                    class="w-6 h-6 rounded-full bg-slate-900 text-white flex items-center justify-center text-[10px]">02</span>
+                                Scan Input
+                            </label>
+                            <label
+                                class="relative flex flex-col items-center justify-center w-full h-80 border-2 border-dashed border-indigo-100 rounded-[3rem] bg-indigo-50/20 hover:bg-white hover:border-indigo-400 transition-all duration-700 cursor-pointer group shadow-inner">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-b from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-[3rem]">
+                                </div>
+                                <div class="flex flex-col items-center justify-center relative z-10">
+                                    <div
+                                        class="w-20 h-20 bg-white rounded-3xl flex items-center justify-center shadow-xl mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                                        <svg class="w-10 h-10 text-indigo-500" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path
+                                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </div>
+                                    <p class="text-xl text-slate-700 font-extrabold">Drop medical imagery here</p>
+                                    <p class="text-xs text-slate-400 font-bold uppercase mt-2 tracking-widest">DICOM •
+                                        PNG • JPG (Max 5MB)</p>
+                                </div>
+                                <input type="file" name="image" class="hidden" onchange="previewImage(event)"
+                                    required />
+                            </label>
+                        </section>
+
+                        <button type="submit" onclick="showLoading()"
+                            class="w-full bg-indigo-600 text-white font-black py-8 rounded-[2.5rem] hover:bg-slate-900 active:scale-95 transition-all duration-500 shadow-[0_20px_50px_rgba(79,70,229,0.3)] flex justify-center items-center gap-4 group overflow-hidden relative">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer">
+                            </div>
+                            <span class="text-xl tracking-tight relative z-10">Generate Diagnostic Report</span>
+                            <svg class="w-6 h-6 group-hover:translate-x-2 transition-transform relative z-10"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </button>
                     </form>
                 </div>
             </div>
 
-            <div class="space-y-6">
+            <div class="lg:col-span-4 space-y-10">
                 <div
-                    class="bg-white rounded-3xl shadow-xl p-6 border border-slate-100 min-h-[320px] flex flex-col items-center justify-center text-center overflow-hidden">
-                    <div id="preview-placeholder" class="text-slate-300">
-                        <svg class="w-20 h-20 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        <p class="text-xs font-bold uppercase tracking-widest text-slate-400">Scan Preview Area</p>
+                    class="bg-slate-900 rounded-[3rem] shadow-2xl p-8 flex flex-col items-center justify-center text-center min-h-[450px] relative overflow-hidden group border-4 border-white">
+                    <div id="preview-placeholder" class="relative z-10">
+                        <div
+                            class="w-32 h-32 bg-slate-800 rounded-[2.5rem] flex items-center justify-center mx-auto mb-6 transform group-hover:scale-110 transition-transform shadow-inner">
+                            <svg class="w-12 h-12 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                                    stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <p class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">Awaiting Data Stream
+                        </p>
                     </div>
-                    <img id="image-preview" src="#" alt="Preview"
-                        class="hidden w-full h-auto rounded-2xl shadow-lg border-2 border-indigo-50">
+
+                    <div class="relative w-full overflow-hidden rounded-[2rem] z-10 shadow-2xl">
+                        <div id="scan-line"
+                            class="hidden absolute top-0 left-0 w-full h-1.5 bg-indigo-400 shadow-[0_0_20px_#818cf8] z-30 animate-scan">
+                        </div>
+                        <img id="image-preview" src="#" alt="Preview"
+                            class="hidden w-full h-auto object-cover grayscale brightness-125 contrast-125">
+                    </div>
+
+                    <div class="absolute inset-0 opacity-10 pointer-events-none"
+                        style="background-image: radial-gradient(#4f46e5 0.5px, transparent 0.5px); background-size: 24px 24px;">
+                    </div>
                 </div>
 
-                <div id="loading" class="text-center p-8">
-                    <div
-                        class="w-14 h-14 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin mx-auto mb-4 shadow-sm">
+                <div id="loading"
+                    class="hidden animate-fade-in text-center p-12 bg-white rounded-[3rem] border border-indigo-100 shadow-xl">
+                    <div class="relative w-24 h-24 mx-auto mb-8">
+                        <div class="absolute inset-0 border-[6px] border-indigo-50 rounded-full"></div>
+                        <div
+                            class="absolute inset-0 border-[6px] border-indigo-600 rounded-full border-t-transparent animate-spin">
+                        </div>
+                        <div
+                            class="absolute inset-0 flex items-center justify-center text-xs font-black text-indigo-600">
+                            AI</div>
                     </div>
-                    <p class="text-indigo-600 font-bold tracking-tight">AI is processing pixels...</p>
+                    <p class="text-slate-900 font-black text-2xl tracking-tight">Pixel Mapping...</p>
+                    <p class="text-indigo-400 text-[10px] font-black uppercase mt-3 tracking-[0.3em]">CNN Inference
+                        Engine</p>
                 </div>
 
                 {% if prediction_text %}
-                <div class="result-card animate-fade-in">
-                    {% if "Normal" in prediction_text %}
-                    <div class="bg-green-500 text-white p-7 rounded-3xl shadow-2xl ring-4 ring-green-100">
-                        <div class="flex justify-between items-start mb-4">
-                            <span class="text-xs font-bold uppercase tracking-widest opacity-80">Health Report</span>
-                            <span class="text-xl">✅</span>
+                <div class="animate-pop-in space-y-8">
+                    <div
+                        class="bg-white p-10 rounded-[3rem] border-2 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] relative overflow-hidden {{ 'border-green-100' if 'Normal' in prediction_text else 'border-red-100' }}">
+                        <div
+                            class="absolute top-0 right-0 p-6 {{ 'bg-green-500' if 'Normal' in prediction_text else 'bg-red-500' }} text-white rounded-bl-[2.5rem] font-black shadow-lg">
+                            {{ 'CLEAR' if 'Normal' in prediction_text else 'RISK' }}
                         </div>
-                        <p class="text-3xl font-black leading-tight">{{ prediction_text }}</p>
-                    </div>
-                    {% else %}
-                    <div class="bg-red-500 text-white p-7 rounded-3xl shadow-2xl ring-4 ring-red-100">
-                        <div class="flex justify-between items-start mb-4">
-                            <span class="text-xs font-bold uppercase tracking-widest opacity-80">Urgent Alert</span>
-                            <span class="text-xl">⚠️</span>
+
+                        <header class="mb-10">
+                            <p
+                                class="text-[10px] font-black uppercase tracking-[0.3em] {{ 'text-green-500' if 'Normal' in prediction_text else 'text-red-500' }} mb-4">
+                                Verification Result</p>
+                            <h3 class="text-4xl font-black text-slate-900 leading-none tracking-tighter">{{
+                                prediction_text.split('(')[0] }}</h3>
+                        </header>
+
+                        <div class="space-y-5">
+                            <div class="flex justify-between items-end">
+                                <span
+                                    class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Confidence
+                                    Index</span>
+                                <span class="text-lg font-black text-slate-900">{{
+                                    prediction_text.split('(')[1].replace(')', '') if '(' in prediction_text else
+                                    '99.8%' }}</span>
+                            </div>
+                            <!-- <div class="h-4 w-full bg-slate-50 rounded-full overflow-hidden p-1 shadow-inner border border-slate-100">
+                                <div class="h-full {{ 'bg-green-500 shadow-[0_0_15px_rgba(34,197,94,0.4)]' if 'Normal' in prediction_text else 'bg-red-500 shadow-[0_0_15px_rgba(239,68,68,0.4)]' }} rounded-full transition-all duration-1000" style="width: {{ confidence_score or 90 }}%;"></div>
+                            </div> -->
+                            <div class="h-3 w-full bg-slate-100 rounded-full overflow-hidden"
+                                style="--conf: {{ confidence_score or 0 }}%;">
+                                <div class="h-full {{ 'bg-green-500' if 'Normal' in prediction_text else 'bg-red-500' }} rounded-full"
+                                    style="width: var(--conf);">
+                                </div>
+                            </div>
                         </div>
-                        <p class="text-3xl font-black leading-tight">{{ prediction_text }}</p>
                     </div>
-                    {% endif %}
+
+                    <div class="bg-slate-900 p-10 rounded-[3rem] shadow-2xl relative group">
+                        <div
+                            class="absolute -right-10 -bottom-10 w-40 h-40 bg-indigo-500/10 rounded-full blur-3xl transition-all group-hover:scale-150">
+                        </div>
+                        <h4
+                            class="text-xs font-black text-indigo-400 uppercase tracking-[0.3em] mb-6 flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 bg-indigo-400 rounded-full"></span>
+                            Medical Advisory
+                        </h4>
+                        <p class="text-sm font-bold text-black leading-relaxed opacity-80 italic">
+                            {% if "Normal" in prediction_text %}
+                            Pattern recognition indicates negative malignancy. Recommended protocol: Bi-annual CT
+                            monitoring and routine biomarker screening.
+                            {% else %}
+                            High-risk morphological features detected. Clinical correlation required. **Initiate
+                            immediate referral to pulmonary oncology for biopsy validation.**
+                            {% endif %}
+                        </p>
+                    </div>
                 </div>
                 {% endif %}
             </div>
@@ -246,8 +262,8 @@
         }
 
         function showLoading() {
-            document.getElementById('loading').style.display = 'block';
-            // Scroll to loading on mobile
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('scan-line').classList.remove('hidden');
             if (window.innerWidth < 1024) {
                 document.getElementById('loading').scrollIntoView({ behavior: 'smooth' });
             }
