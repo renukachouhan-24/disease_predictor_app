@@ -206,11 +206,21 @@ def predict():
         
         return render_template('index.html', prediction_text=final_result, confidence_score=confidence, user_name=current_user.name)
 
+    # except Exception as e:
+    #     tf.keras.backend.clear_session()
+    #     import gc
+    #     gc.collect()
+    #     return render_template('index.html', prediction_text=f"Error: {str(e)}", user_name=current_user.name)
+    
     except Exception as e:
         tf.keras.backend.clear_session()
         import gc
         gc.collect()
-        return render_template('index.html', prediction_text=f"Error: {str(e)}", user_name=current_user.name)
+        # confidence_score=0 pass karein taaki UI crash na ho
+        return render_template('index.html', 
+                               prediction_text=f"Error: {str(e)}", 
+                               confidence_score=0, 
+                               user_name=current_user.name)
     
 if __name__ == "__main__":
     app.run(debug=True, threaded=False)

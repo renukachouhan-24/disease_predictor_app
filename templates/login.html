@@ -9,22 +9,33 @@
         .gradient-bg { background: linear-gradient(135deg, #1e3a8a 0%, #581c87 100%); }
     </style>
 </head>
-<body class="bg-slate-50 min-h-screen flex items-center justify-center font-sans">
-    <div class="max-w-md w-full bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200">
-        <div class="gradient-bg py-10 text-center text-white">
-            <h1 class="text-3xl font-bold">Welcome Back</h1>
-            <p class="text-blue-100 mt-2">Sign in to access AI Diagnostics</p>
-        </div>
-        <div class="p-8 text-center">
-            <p class="text-slate-600 mb-8">Please use your Google account to securely access the predictor tool.</p>
-            
-            <a href="/login/google" class="flex items-center justify-center gap-3 w-full bg-white border-2 border-slate-200 hover:border-purple-500 hover:bg-slate-50 text-slate-700 font-bold py-4 rounded-xl shadow-sm transition-all transform hover:-translate-y-1">
-                <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" class="w-6 h-6" alt="Google">
-                Sign in with Google
-            </a>
-
-            <p class="mt-8 text-xs text-slate-400 uppercase tracking-widest">Secure OAuth 2.0 Encryption</p>
+<body class="bg-[#0f172a] min-h-screen flex items-center justify-center font-sans relative overflow-hidden">
+    <div class="absolute top-0 -left-4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-[120px] opacity-20 animate-blob"></div>
+    <div class="absolute top-0 -right-4 w-72 h-72 bg-indigo-500 rounded-full mix-blend-multiply filter blur-[120px] opacity-20 animate-blob animation-delay-2000"></div>
+    
+    <div class="max-w-md w-full relative group">
+        <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-[2.5rem] blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+        
+        <div class="relative bg-white/95 backdrop-blur-2xl rounded-[2.5rem] shadow-2xl overflow-hidden border border-white/20">
+            <div class="p-10 text-center">
+                <div class="w-16 h-16 bg-slate-900 rounded-2xl flex items-center justify-center text-white text-2xl font-black mx-auto mb-6 shadow-2xl rotate-3">M</div>
+                <h1 class="text-3xl font-black text-slate-900 tracking-tight">MediScan Pro</h1>
+                <p class="text-slate-500 mt-3 font-medium">Access the advanced AI oncology diagnostic suite.</p>
+                
+                <div class="my-10">
+                    <a href="/login/google" class="flex items-center justify-center gap-4 w-full bg-white border-2 border-slate-100 hover:border-indigo-500 text-slate-700 font-bold py-4 rounded-2xl shadow-sm transition-all hover:shadow-xl group">
+                        <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" class="w-6 h-6 group-hover:scale-110 transition-transform" alt="Google">
+                        Continue with Google
+                    </a>
+                </div>
+                
+                <div class="flex items-center gap-2 justify-center text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
+                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"/></svg>
+                    Enterprise Grade Security
+                </div>
+            </div>
         </div>
     </div>
 </body>
+
 </html>

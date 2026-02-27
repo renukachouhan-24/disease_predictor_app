@@ -8,3 +8,4 @@ google-auth-oauthlib
 requests
 oauthlib
 gunicorn
+h5py

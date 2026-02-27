@@ -58,66 +58,60 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
             <div class="lg:col-span-8 space-y-10">
                 <div
-                    class="bg-white rounded-[3rem] shadow-2xl shadow-indigo-100/50 p-12 relative overflow-hidden border border-white">
-                    <div
-                        class="absolute -top-20 -right-20 w-80 h-80 bg-gradient-to-br from-indigo-100 to-transparent rounded-full blur-3xl opacity-40">
-                    </div>
+                    class="bg-white rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] p-10 border border-slate-100">
 
-                    <form action="/predict" method="post" enctype="multipart/form-data"
-                        class="relative z-10 space-y-12">
+                    <form action="/predict" method="post" enctype="multipart/form-data" id="upload-form"
+                        class="space-y-10">
                         <section>
-                            <label
-                                class="flex items-center gap-3 text-slate-400 text-xs font-black uppercase mb-8 tracking-[0.3em]">
-                                <span
-                                    class="w-6 h-6 rounded-full bg-slate-900 text-white flex items-center justify-center text-[10px]">01</span>
-                                Select Protocol
-                            </label>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                {% for val, label, icon in [('lung', 'Pulmonary', '🫁'), ('ovarian', 'Ovarian', '🩺'),
-                                ('pancreatic', 'Pancreatic', '🧪')] %}
-                                <label class="group cursor-pointer">
+                            <div class="mb-6">
+                                <p class="text-[11px] text-slate-400 font-bold uppercase tracking-[0.2em] mb-1">Select
+                                    Modality</p>
+                                <h2 class="text-3xl font-black text-slate-900 tracking-tight">Organ Protocol</h2>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                                {% for val, label, icon in [('lung', 'Lung Scan', '🫁'), ('ovarian', 'Ovarian', '🩺'),
+                                ('pancreatic', 'Pancreas', '🔬')] %}
+                                <label class="cursor-pointer group relative">
                                     <input type="radio" name="disease" value="{{ val }}" class="peer hidden"
                                         {{ 'checked' if val=='lung' }}>
-                                    <div
-                                        class="relative bg-slate-50/50 border-2 border-slate-100 p-8 rounded-[2.5rem] text-center transition-all duration-500 peer-checked:bg-slate-900 peer-checked:text-white peer-checked:border-slate-900 peer-checked:shadow-2xl peer-checked:-translate-y-2">
+                                    <div class="bg-white border border-slate-100 p-6 rounded-3xl transition-all duration-300 
+                                    peer-checked:bg-[#161922] peer-checked:text-white peer-checked:shadow-2xl 
+                                    hover:border-indigo-200">
                                         <div
-                                            class="absolute top-4 right-4 w-2 h-2 rounded-full bg-indigo-500 opacity-0 peer-checked:opacity-100">
+                                            class="absolute top-4 right-4 w-2 h-2 rounded-full bg-green-500 opacity-0 peer-checked:opacity-100">
                                         </div>
-                                        <span
-                                            class="text-5xl block mb-4 filter drop-shadow-lg transform group-hover:scale-110 transition-transform">{{
-                                            icon }}</span>
-                                        <span class="text-sm font-black uppercase tracking-tighter">{{ label }}</span>
+
+                                        <span class="text-3xl block mb-4 filter drop-shadow-sm">{{ icon }}</span>
+                                        <p class="text-lg font-black tracking-tight mb-1">{{ label }}</p>
+                                        <p
+                                            class="text-[8px] font-grotesk text-slate-400 uppercase tracking-widest peer-checked:text-indigo-400">
+                                            {{ 'Active Protocol' if val=='lung' else 'Select for Scan' }}
+                                        </p>
                                     </div>
                                 </label>
                                 {% endfor %}
                             </div>
                         </section>
 
-                        <section>
+                        <section class="relative">
                             <label
-                                class="flex items-center gap-3 text-slate-400 text-xs font-black uppercase mb-8 tracking-[0.3em]">
-                                <span
-                                    class="w-6 h-6 rounded-full bg-slate-900 text-white flex items-center justify-center text-[10px]">02</span>
-                                Scan Input
-                            </label>
-                            <label
-                                class="relative flex flex-col items-center justify-center w-full h-80 border-2 border-dashed border-indigo-100 rounded-[3rem] bg-indigo-50/20 hover:bg-white hover:border-indigo-400 transition-all duration-700 cursor-pointer group shadow-inner">
-                                <div
-                                    class="absolute inset-0 bg-gradient-to-b from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-[3rem]">
-                                </div>
-                                <div class="flex flex-col items-center justify-center relative z-10">
+                                class="flex flex-col items-center justify-center w-full h-80 border-2 border-dashed border-indigo-100 rounded-[2.5rem] bg-indigo-50/20 hover:bg-white hover:border-indigo-400 transition-all duration-500 cursor-pointer group shadow-inner">
+                                <div class="flex flex-col items-center justify-center text-center px-6">
                                     <div
-                                        class="w-20 h-20 bg-white rounded-3xl flex items-center justify-center shadow-xl mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                                        <svg class="w-10 h-10 text-indigo-500" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
+                                        class="w-20 h-20 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 transition-transform">
+                                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path
                                                 d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                                                 stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                         </svg>
                                     </div>
-                                    <p class="text-xl text-slate-700 font-extrabold">Drop medical imagery here</p>
-                                    <p class="text-xs text-slate-400 font-bold uppercase mt-2 tracking-widest">DICOM •
-                                        PNG • JPG (Max 5MB)</p>
+                                    <h3 class="text-2xl font-black text-slate-800 mb-2">Diagnostic Image Upload</h3>
+                                    <p class="text-sm text-slate-500 font-medium max-w-sm mx-auto mb-6">Drag and drop
+                                        high-resolution DICOM or NIfTI files here for automated neural analysis.</p>
+                                    <span
+                                        class="inline-block bg-blue-600 text-white font-bold px-8 py-3 rounded-2xl hover:bg-blue-700 transition-colors shadow-lg">+
+                                        Browse Files</span>
                                 </div>
                                 <input type="file" name="image" class="hidden" onchange="previewImage(event)"
                                     required />
@@ -125,16 +119,13 @@
                         </section>
 
                         <button type="submit" onclick="showLoading()"
-                            class="w-full bg-indigo-600 text-white font-black py-8 rounded-[2.5rem] hover:bg-slate-900 active:scale-95 transition-all duration-500 shadow-[0_20px_50px_rgba(79,70,229,0.3)] flex justify-center items-center gap-4 group overflow-hidden relative">
-                            <div
-                                class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer">
-                            </div>
-                            <span class="text-xl tracking-tight relative z-10">Generate Diagnostic Report</span>
-                            <svg class="w-6 h-6 group-hover:translate-x-2 transition-transform relative z-10"
-                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" />
+                            class="w-full bg-black text-white font-bold py-6 rounded-2xl shadow-xl flex justify-center items-center gap-4 group hover:bg-black transition-all">
+                            <svg class="w-5 h-5 text-indigo-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7a1 1 0 10-2 0v2H7z"
+                                    clip-rule="evenodd" />
                             </svg>
+                            <span class="uppercase tracking-[0.2em] text-sm">Initialize AI Inference</span>
                         </button>
                     </form>
                 </div>
@@ -211,9 +202,6 @@
                                     prediction_text.split('(')[1].replace(')', '') if '(' in prediction_text else
                                     '99.8%' }}</span>
                             </div>
-                            <!-- <div class="h-4 w-full bg-slate-50 rounded-full overflow-hidden p-1 shadow-inner border border-slate-100">
-                                <div class="h-full {{ 'bg-green-500 shadow-[0_0_15px_rgba(34,197,94,0.4)]' if 'Normal' in prediction_text else 'bg-red-500 shadow-[0_0_15px_rgba(239,68,68,0.4)]' }} rounded-full transition-all duration-1000" style="width: {{ confidence_score or 90 }}%;"></div>
-                            </div> -->
                             <div class="h-3 w-full bg-slate-100 rounded-full overflow-hidden"
                                 style="--conf: {{ confidence_score or 0 }}%;">
                                 <div class="h-full {{ 'bg-green-500' if 'Normal' in prediction_text else 'bg-red-500' }} rounded-full"
